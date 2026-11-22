@@ -2,6 +2,8 @@
  * Servicio de favoritos: une la tabla `favorites` (SQL) con las fuentes
  * de datos de las películas (OMDB o MongoDB).
  * Lo usan la API (GET /api/favorites) y la vista "Mis películas" (/movies).
+ *
+ * @module services/favorite
  */
 
 const Favorite = require("../models/favorite.model");

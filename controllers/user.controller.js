@@ -7,6 +7,8 @@
  *
  * Gestión de usuarios (solo admin, vista /users): POST /api/user,
  * PUT /api/user/:id y DELETE /api/user/:id. El id del usuario va en la URL.
+ *
+ * @module controllers/user
  */
 
 const bcrypt = require('bcrypt');
@@ -133,6 +135,7 @@ const validateUserByAdmin = (body = {}) => {
 /** El email ya lo usa otro usuario (índice único ux_users_email → error 23505). */
 const isDuplicateEmail = (err) => Boolean(err && err.code === '23505');
 
+/** Responde 400 con el error de email repetido, en el mismo formato que la validación. */
 const duplicateEmailResponse = (res) =>
   res.status(400).json({ message: 'Datos no válidos', errors: ['Ese email ya está registrado'] });
 

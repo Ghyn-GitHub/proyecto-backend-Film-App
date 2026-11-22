@@ -1,6 +1,8 @@
 /**
  * Servicio de películas: une las dos fuentes de datos (OMDB y MongoDB)
  * para que el origen sea transparente para el usuario.
+ *
+ * @module services/movie
  */
 
 const omdbService = require("./omdb.service");

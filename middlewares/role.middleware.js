@@ -8,10 +8,21 @@
  * - Vistas: sin usuario redirige a /; si su rol no tiene permiso lo manda
  *   a la página de inicio de su rol (admin → /movies, usuario → /dashboard),
  *   como pide el README ("el Administrador no podrá acceder a ninguna de las otras").
+ *
+ * @module middlewares/role
  */
 
 const { getHomeByRole } = require('../config/session');
 
+/**
+ * Crea el middleware que comprueba el rol de `req.user`.
+ *
+ * @param {Array<"user"|"admin">} allowedRoles Roles que pueden pasar.
+ * @returns {import('express').RequestHandler}
+ * @example
+ * // routes/movie.routes.js (isAuthenticated ya va antes, en app.js)
+ * router.post('/movie', checkRole(['admin']), movieController.createMovie);
+ */
 const checkRole = (allowedRoles) => {
   return (req, res, next) => {
     const user = req.user;

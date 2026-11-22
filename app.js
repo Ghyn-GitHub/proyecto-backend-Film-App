@@ -1,3 +1,11 @@
+/**
+ * Punto de entrada del servidor Express: vistas Pug, archivos estáticos,
+ * Swagger (/api-docs), rutas públicas, rutas protegidas (isAuthenticated
+ * y checkRole) y conexión a MongoDB al arrancar.
+ *
+ * @module app
+ */
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');

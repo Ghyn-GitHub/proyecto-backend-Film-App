@@ -1,3 +1,13 @@
+/**
+ * Controlador de autenticación: registro, login con email y contraseña,
+ * login con Google (OAuth) y logout.
+ *
+ * Todos abren la sesión igual (services/session.service.js): JWT en la cookie
+ * `token`, y después redirigen a la página de inicio del rol.
+ *
+ * @module controllers/auth
+ */
+
 const bcrypt = require('bcrypt');
 const userModel = require('../models/user.model');
 const {
@@ -101,11 +111,29 @@ const login = async (req, res) => {
   }
 };
 
+/**
+ * GET /api/auth/google
+ * Manda al usuario a la pantalla de Google para elegir cuenta.
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
 const googleAuth = (req, res) => {
   const url = getGoogleAuthUrl();
   return res.redirect(url);
 };
 
+/**
+ * GET /api/auth/google/callback (la URL de GOOGLE_CALLBACK_URL)
+ * Google vuelve aquí con `?code=...`: se cambia por el perfil del usuario,
+ * se busca o se crea en la base de datos, se abre la sesión y se redirige según el rol.
+ *
+ * - 400 (vista login) si el usuario cancela o no llega el `code`.
+ * - 500 (vista login) si falla Google o la base de datos.
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
 const googleCallback = async (req, res) => {
   try {
     const { code, error } = req.query;
@@ -135,6 +163,17 @@ const googleCallback = async (req, res) => {
   }
 };
 
+/**
+ * POST /api/signup
+ * Registra un usuario nuevo (siempre con rol `user`), cifra la contraseña
+ * con bcrypt, abre la sesión y redirige a /dashboard.
+ *
+ * - 400 (vista signup) si falta algún campo o el email ya está registrado.
+ * - 500 (vista signup) si ocurre un error inesperado.
+ *
+ * @param {import('express').Request} req Body: `{ name, email, password }`.
+ * @param {import('express').Response} res
+ */
 const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;

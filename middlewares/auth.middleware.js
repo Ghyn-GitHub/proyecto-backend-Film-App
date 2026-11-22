@@ -10,12 +10,19 @@
  * - las vistas redirigen al inicio (/), como pide el README.
  *
  * Va siempre ANTES de checkRole, que necesita el `req.user` que pone este.
+ *
+ * @module middlewares/auth
  */
 
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, COOKIE_OPTIONS } = require('../config/session');
 
-/** Saca el token de la cookie o, si no hay, de la cabecera Authorization. */
+/**
+ * Saca el token de la cookie o, si no hay, de la cabecera Authorization.
+ *
+ * @param {import('express').Request} req
+ * @returns {string|null} El token, o null si no viene.
+ */
 const getToken = (req) => {
   const cookieToken = req.cookies && req.cookies.token;
   if (cookieToken) return cookieToken;
@@ -27,7 +34,13 @@ const getToken = (req) => {
   return null;
 };
 
-/** Respuesta cuando no hay sesión válida: 401 en la API, redirección en las vistas. */
+/**
+ * Respuesta cuando no hay sesión válida: 401 en la API, redirección en las vistas.
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {string} message Mensaje del JSON (solo en la API).
+ */
 const denyAccess = (req, res, message) => {
   if (req.originalUrl.startsWith('/api')) {
     return res.status(401).json({ message });
@@ -35,6 +48,14 @@ const denyAccess = (req, res, message) => {
   return res.redirect('/');
 };
 
+/**
+ * Verifica el JWT y, si es válido, pone en `req.user` el id, email, nombre y rol
+ * y pasa al siguiente middleware. Si está caducado o manipulado, borra la cookie.
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
 const isAuthenticated = (req, res, next) => {
   const token = getToken(req);
 

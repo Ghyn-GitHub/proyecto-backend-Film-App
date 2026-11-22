@@ -1,3 +1,10 @@
+/**
+ * Controlador de favoritos del usuario (API /api/favorites).
+ * Siempre trabaja con `req.user.id` (del token), nunca con un id de la URL o del body.
+ *
+ * @module controllers/favorites
+ */
+
 const mongoose = require("mongoose");
 const Favorite = require("../models/favorite.model");
 const favoriteService = require("../services/favorite.service");

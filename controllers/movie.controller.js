@@ -1,3 +1,11 @@
+/**
+ * Controlador de películas (API /api/movie).
+ * La búsqueda por título la puede usar cualquier usuario con sesión;
+ * crear, editar y borrar (solo películas de MongoDB) son solo para el admin.
+ *
+ * @module controllers/movie
+ */
+
 const mongoose = require("mongoose");
 const movieService = require("../services/movie.service");
 const Favorite = require("../models/favorite.model");
