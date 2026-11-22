@@ -1,3 +1,9 @@
+/**
+ * Modelo de películas de MongoDB (las que crea el admin), con Mongoose.
+ *
+ * @module models/movie
+ */
+
 const mongoose = require('mongoose');
 
 const MIN_YEAR = 1888;

@@ -4,6 +4,8 @@
  * Lo usan el login, el registro y Google (controllers/auth.controller.js) y la
  * edición del perfil (controllers/user.controller.js), que renueva el token para
  * que el nombre y el email nuevos se vean al momento.
+ *
+ * @module services/session
  */
 
 const jwt = require('jsonwebtoken');

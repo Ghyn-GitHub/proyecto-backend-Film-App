@@ -3,6 +3,8 @@
  * La usan controllers/auth.controller.js (abrir y cerrar sesión) y
  * middlewares/auth.middleware.js (comprobarla), para que los dos usen
  * siempre el mismo secreto y las mismas opciones de la cookie.
+ *
+ * @module config/session
  */
 
 const JWT_SECRET = process.env.JWT_SECRET;

@@ -1,6 +1,8 @@
 /**
  * Modelo de favoritos (tabla `favorites` en PostgreSQL, ver docs/schema.sql).
  * Solo guarda la relación usuario + película + fuente, nunca los datos de la película.
+ *
+ * @module models/favorite
  */
 
 const pool = require("../config/sqlDB");

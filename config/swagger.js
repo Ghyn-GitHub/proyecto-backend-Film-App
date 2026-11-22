@@ -1,3 +1,10 @@
+/**
+ * Especificación OpenAPI de la API, generada con swagger-jsdoc a partir de
+ * los comentarios `@swagger` de routes/*.js. app.js la sirve en /api-docs.
+ *
+ * @module config/swagger
+ */
+
 const swaggerJsdoc = require("swagger-jsdoc");
 
 const options = {

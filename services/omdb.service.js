@@ -2,6 +2,8 @@
  * Servicio de acceso a la API externa OMDB (http://www.omdbapi.com/).
  * Devuelve siempre las películas en el formato común de la app
  * (el mismo que las películas de MongoDB), con `source: "omdb"`.
+ *
+ * @module services/omdb
  */
 
 const OMDB_URL = "https://www.omdbapi.com/";

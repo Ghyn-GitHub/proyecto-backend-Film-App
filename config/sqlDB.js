@@ -1,6 +1,15 @@
+/**
+ * Conexión a PostgreSQL (Supabase): usuarios y favoritos.
+ * Exporta un Pool de `pg` que comparten todos los modelos SQL.
+ * La conexión se configura con DATABASE_URL.
+ *
+ * @module config/sqlDB
+ */
+
 const { Pool } = require('pg');
 require('dotenv').config();
 
+/** @type {import('pg').Pool} */
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
