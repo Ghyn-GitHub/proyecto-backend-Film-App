@@ -39,6 +39,13 @@ const router = express.Router();
  *         created_at:
  *           type: string
  *           format: date-time
+ *   responses:
+ *     FavoriteBadRequest:
+ *       description: Falta movieId o source, o source no es válido
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Error'
  */
 
 /**
@@ -61,11 +68,11 @@ const router = express.Router();
  *                   items:
  *                     $ref: '#/components/schemas/Movie'
  *       401:
- *         description: No autenticado
+ *         $ref: '#/components/responses/Unauthorized'
  *       403:
- *         description: No es un usuario (rol "user")
+ *         $ref: '#/components/responses/Forbidden'
  *       500:
- *         description: Error al obtener los favoritos
+ *         $ref: '#/components/responses/ServerError'
  */
 router.get("/", favoritesController.getFavorites);
 
@@ -93,15 +100,21 @@ router.get("/", favoritesController.getFavorites);
  *                 favorite:
  *                   $ref: '#/components/schemas/Favorite'
  *       400:
- *         description: Falta movieId o source, o source no es válido
+ *         $ref: '#/components/responses/FavoriteBadRequest'
  *       401:
- *         description: No autenticado
+ *         $ref: '#/components/responses/Unauthorized'
  *       403:
- *         description: No es un usuario (rol "user")
+ *         $ref: '#/components/responses/Forbidden'
  *       409:
  *         description: La película ya está en favoritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: La película ya está en favoritos
  *       500:
- *         description: Error al guardar el favorito
+ *         $ref: '#/components/responses/ServerError'
  */
 router.post("/", favoritesController.addFavorite);
 
@@ -120,16 +133,28 @@ router.post("/", favoritesController.addFavorite);
  *     responses:
  *       200:
  *         description: Película quitada de favoritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *             example:
+ *               message: Película quitada de favoritos
  *       400:
- *         description: Falta movieId o source, o source no es válido
+ *         $ref: '#/components/responses/FavoriteBadRequest'
  *       401:
- *         description: No autenticado
+ *         $ref: '#/components/responses/Unauthorized'
  *       403:
- *         description: No es un usuario (rol "user")
+ *         $ref: '#/components/responses/Forbidden'
  *       404:
  *         description: La película no está en favoritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *             example:
+ *               message: La película no está en favoritos
  *       500:
- *         description: Error al quitar el favorito
+ *         $ref: '#/components/responses/ServerError'
  */
 router.delete("/", favoritesController.removeFavorite);
 
