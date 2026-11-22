@@ -5,7 +5,7 @@
  * siempre el mismo secreto y las mismas opciones de la cookie.
  */
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_cambiar_en_env';
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 
 /**
