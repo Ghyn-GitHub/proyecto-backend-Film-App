@@ -19,7 +19,7 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/user.model");
 const { login, logout, signup, getRedirectByRole } = require("../controllers/auth.controller");
 
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_cambiar_en_env";
+const { JWT_SECRET } = require("../config/session");
 const PASSWORD = "123456";
 let passwordHash;
 
